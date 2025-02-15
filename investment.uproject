@@ -12,7 +12,8 @@
 				"Engine",
 				"FlowEditor",
 				"CoreUObject",
-				"Flow"
+				"Flow",
+				"UMG"
 			]
 		}
 	],

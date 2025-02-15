@@ -4,46 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "Nodes/FlowNode.h"
+#include "MyStructs.h"
 #include "Portray.generated.h"
-
-USTRUCT(BlueprintType)
-struct FNarration : public FTableRowBase
-{
-	GENERATED_USTRUCT_BODY()
-public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FText NarrationText;
-};
-
-USTRUCT(BlueprintType)
-struct FDialog : public FTableRowBase
-{
-	GENERATED_USTRUCT_BODY()
-public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FText VoiceTag;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FText Comment;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FText SpeakingTo;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FText DialogLine;
-};
-
-USTRUCT(BlueprintType)
-struct FScreenPlayEntry : public FTableRowBase
-{
-	GENERATED_USTRUCT_BODY()
-public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray< FNarration >  narration;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray< FDialog > dialogLine;
-};
 
 /**
  * 
@@ -60,8 +22,17 @@ public:
 protected:
 	virtual void ExecuteInput(const FName& PinName) override;
 
+	void OnPortrayFinished();
+
+	FCallBack finPortrayal;
+
 #if WITH_EDITOR
 public:
+	/// <summary>
+	/// Show in the Flow graph if the input screenplay data table is provided, if it has valid row entries.
+	/// If it does, show the screenplay data table name above the node to clearly show to content designer what the portray node is doing.
+	/// </summary>
+	/// <returns></returns>
 	virtual FString GetNodeDescription() const override;
 #endif
 };
