@@ -10,7 +10,9 @@
 			"LoadingPhase": "Default",
 			"AdditionalDependencies": [
 				"Engine",
-				"FlowEditor"
+				"FlowEditor",
+				"CoreUObject",
+				"Flow"
 			]
 		}
 	],
