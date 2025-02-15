@@ -52,10 +52,16 @@ UCLASS(NotBlueprintable, meta = (DisplayName = "Portray"))
 class INVESTMENT_API UPortray : public UFlowNode
 {
 	GENERATED_UCLASS_BODY()
-protected:
-	UPROPERTY()
+
+public:
+	UPROPERTY(EditAnywhere, Category = "ScreenPlay")
 	UDataTable* screenPlay;
 
 protected:
 	virtual void ExecuteInput(const FName& PinName) override;
+
+#if WITH_EDITOR
+public:
+	virtual FString GetNodeDescription() const override;
+#endif
 };
