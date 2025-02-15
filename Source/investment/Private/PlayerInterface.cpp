@@ -16,46 +16,40 @@ UPlayerInterface::UPlayerInterface()
 	// ...
 }
 
-void UPlayerInterface::RecursiveTextScreenPlayPortrayal() {	
+/*
+Implements recursively iterating over the screen play entry, calling the UI to display, then displaying next after an interval
+Once all entries have been displayed, executes the callBack delegate (a flow node is waiting on).
+*/
+void UPlayerInterface::TextScreenPlayPortrayal(TArray<FScreenPlayEntry*> ScreenPlayEntries, FCallBack callBack, int32 curInd) 
+{
+	//Basecase, if we have itterated through elements, cease recursion and execute callback.
+	if (curInd > ScreenPlayEntries.Num())
+	{
+		callBack.ExecuteIfBound();
+		return;
+	}
+
 	//playerDisplay->DisplayScreenPlayEntry(ScreenPlayEntries[0]);
+	FTimerHandle UnusedHandle;
+	FTimerDelegate TimerDel;
+
+	playerDisplay->DisplayScreenPlayEntry(ScreenPlayEntries[curInd]);
+
+	TimerDel.BindUFunction(this, FName("TextScreenPlayPortrayal"), ScreenPlayEntries, callBack, curInd + 1);
+
+	//FCallBack UnusedHandle;
+	GetOwner()->GetWorldTimerManager().SetTimer(
+		UnusedHandle,
+		TimerDel,
+		10.0f,
+		false
+	);
 }
 
 void UPlayerInterface::DoTextScreenPlayPortrayal(TArray<FScreenPlayEntry*> ScreenPlayEntries, FCallBack callBack)
 {
-	FTimerHandle UnusedHandle;
-	//FCallBack UnusedHandle;
-	GetOwner()->GetWorldTimerManager().SetTimer(
-		UnusedHandle, 
-		this, 
-		&UPlayerInterface::RecursiveTextScreenPlayPortrayal, 
-		1.0f, 
-		false
-	);
-	//	UnusedHandle,
-	//	this,
-	//	&UPlayerInterface::RecursiveTextScreenPlayPortrayal,
-	//	1000,
-	//	false
-	//);
-
-	//RecursiveTextScreenPlayPortrayal();
-	//// For each row, get the UI to display it's narration or dialog line for some time
-	//for (FScreenPlayEntry* entry : ScreenPlayEntries)
-	//{
-	//	if (entry->narration.Num() > 0) {
-	//		playerDisplay->DisplayNarration(entry->narration[0]);
-	//		FTimerHandle UnusedHandle;
-	//		GetWorld()->GetTimerManager()->SetTimer(
-	//			
-	//		);
-	//	}
-	//	else if (entry->dialogLine.Num() > 0) {
-	//		playerDisplay->DisplayDialogLine(entry->dialogLine[1]);
-	//	}
-	//}
-
-	//
-	// Message the caller that job has been completed.
+	// Start recursion
+	TextScreenPlayPortrayal(ScreenPlayEntries, callBack, 0);
 }
 
 

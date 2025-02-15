@@ -32,11 +32,9 @@ protected:
 
 	UPlayerDisplayIO* playerDisplay;
 
-	void RecursiveTextScreenPlayPortrayal();//(TArray<FScreenPlayEntry*> ScreenPlayEntries, FCallBack callBack, int32 curInd);
+	void TextScreenPlayPortrayal(TArray<FScreenPlayEntry*> ScreenPlayEntries, FCallBack callBack, int32 curInd);
 
 public:	
 	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
-		
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;		
 };
