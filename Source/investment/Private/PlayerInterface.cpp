@@ -22,30 +22,35 @@ Once all entries have been displayed, executes the callBack delegate (a flow nod
 */
 void UPlayerInterface::TextScreenPlayPortrayal(TArray<FScreenPlayEntry*> ScreenPlayEntries, FCallBack callBack, int32 curInd) 
 {
-	//Basecase, if we have itterated through elements, cease recursion and execute callback.
-	if (curInd >= ScreenPlayEntries.Num())
+	//if we don't do this. the compiler optimizes out the curInd
+	int32 thisCurInd = curInd;
+	
+	//Base case, if we have iterated through elements, cease recursion and execute callback.
+	if (thisCurInd >= ScreenPlayEntries.Num())
 	{
 		callBack.ExecuteIfBound();
 		return;
 	}
+	else { //I think  there's an async thread bug here, if we don't have this else condition, things break
 
-	//playerDisplay->DisplayScreenPlayEntry(ScreenPlayEntries[0]);
-	FTimerHandle UnusedHandle;
-	FTimerDelegate TimerDel;
+		//playerDisplay->DisplayScreenPlayEntry(ScreenPlayEntries[0]);
+		FTimerHandle UnusedHandle;
+		FTimerDelegate TimerDel;
 
-	// get the value pointed to by derefencing it
-	playerDisplay->SetScreenPlayEntry_ThenDraw(*ScreenPlayEntries[curInd]);
+		// get the value pointed to by DE refencing it
+		playerDisplay->SetScreenPlayEntry_ThenDraw(*ScreenPlayEntries[thisCurInd]);
 
-	TimerDel.BindUObject(this, &UPlayerInterface::TextScreenPlayPortrayal, ScreenPlayEntries, callBack, curInd + 1);
-	//TimerDel.BindUFunction(this, FName("TextScreenPlayPortrayal"), ScreenPlayEntries, callBack, curInd + 1);
+		TimerDel.BindUObject(this, &UPlayerInterface::TextScreenPlayPortrayal, ScreenPlayEntries, callBack, thisCurInd + 1);
+		//TimerDel.BindUFunction(this, FName("TextScreenPlayPortrayal"), ScreenPlayEntries, callBack, curInd + 1);
 
-	//FCallBack UnusedHandle;
-	GetOwner()->GetWorldTimerManager().SetTimer(
-		UnusedHandle,
-		TimerDel,
-		3.0f,
-		false
-	);
+		//FCallBack UnusedHandle;
+		GetOwner()->GetWorldTimerManager().SetTimer(
+			UnusedHandle,
+			TimerDel,
+			0.5f,
+			false
+		);
+	}
 }
 
 void UPlayerInterface::DoTextScreenPlayPortrayal(TArray<FScreenPlayEntry*> ScreenPlayEntries, FCallBack callBack)
