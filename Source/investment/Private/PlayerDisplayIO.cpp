@@ -3,14 +3,14 @@
 
 #include "PlayerDisplayIO.h"
 
-void UPlayerDisplayIO::DisplayDialogLine(FDialog)
+void UPlayerDisplayIO::NativeConstruct()
 {
+	Super::NativeConstruct();
 }
 
-void UPlayerDisplayIO::DisplayNarration(FNarration)
+void UPlayerDisplayIO::SetScreenPlayEntry_ThenDraw(FScreenPlayEntry& entry)
 {
-}
-
-void UPlayerDisplayIO::DisplayScreenPlayEntry(const FScreenPlayEntry*)
-{
+	ScreenPlayBlockToDraw = entry;
+	//This function will take data we've saved, and render it out.
+	DrawScreenPlayEntryFromData();
 }

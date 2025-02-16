@@ -26,7 +26,7 @@ public:
 };
 
 USTRUCT(BlueprintType)
-struct FDialog : public FTableRowBase
+struct FDialogLine : public FTableRowBase
 {
 	GENERATED_USTRUCT_BODY()
 public:
@@ -52,5 +52,5 @@ public:
 	TArray< FNarration >  narration;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray< FDialog > dialogLine;
+	TArray< FDialogLine > dialogLine;
 };

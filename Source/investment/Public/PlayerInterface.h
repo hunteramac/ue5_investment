@@ -8,7 +8,7 @@
 #include "PlayerDisplayIO.h"
 #include "PlayerInterface.generated.h"
 
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent), BlueprintType, Blueprintable)
 class INVESTMENT_API UPlayerInterface : public UActorComponent
 {
 	GENERATED_BODY()
@@ -29,7 +29,8 @@ public:
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
-
+	
+	UPROPERTY(BlueprintReadWrite)
 	UPlayerDisplayIO* playerDisplay;
 
 	void TextScreenPlayPortrayal(TArray<FScreenPlayEntry*> ScreenPlayEntries, FCallBack callBack, int32 curInd);

@@ -11,13 +11,28 @@
 /**
  * 
  */
-UCLASS()
+UCLASS(Abstract)
 class INVESTMENT_API UPlayerDisplayIO : public UUserWidget
 {
 	GENERATED_BODY()
 
+protected:
+
+	UPROPERTY(BlueprintReadWrite)
+	FScreenPlayEntry ScreenPlayBlockToDraw;
+
 public:
-	virtual void DisplayDialogLine(FDialog);
-	virtual void DisplayNarration(FNarration);
-	virtual void DisplayScreenPlayEntry(const FScreenPlayEntry*);
+	virtual void NativeConstruct() override;
+	//virtual void DisplayDialogLine(FDialog);
+	//virtual void DisplayNarration(FNarration);
+
+	// Define this in blueprint.
+	//UFUNCTION(BlueprintImplementableEvent)
+	void SetScreenPlayEntry_ThenDraw(FScreenPlayEntry& entry);
+
+	/// <summary>
+	/// Implemented on Blueprint side to filter data to UI elements
+	/// </summary>
+	UFUNCTION(BlueprintImplementableEvent)
+	void DrawScreenPlayEntryFromData();
 };
