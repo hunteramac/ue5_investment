@@ -38,7 +38,7 @@ void UPlayerInterface::TextScreenPlayPortrayal(TArray<FScreenPlayEntry*> ScreenP
 		FTimerDelegate TimerDel;
 
 		// get the value pointed to by DE refencing it
-		playerDisplay->SetScreenPlayEntry_ThenDraw(*ScreenPlayEntries[thisCurInd]);
+		float timeToDisplayEntry = playerDisplay->SetScreenPlayEntry_ThenDraw(*ScreenPlayEntries[thisCurInd]);
 
 		TimerDel.BindUObject(this, &UPlayerInterface::TextScreenPlayPortrayal, ScreenPlayEntries, callBack, thisCurInd + 1);
 		//TimerDel.BindUFunction(this, FName("TextScreenPlayPortrayal"), ScreenPlayEntries, callBack, curInd + 1);
@@ -47,7 +47,7 @@ void UPlayerInterface::TextScreenPlayPortrayal(TArray<FScreenPlayEntry*> ScreenP
 		GetOwner()->GetWorldTimerManager().SetTimer(
 			UnusedHandle,
 			TimerDel,
-			0.5f,
+			timeToDisplayEntry,
 			false
 		);
 	}

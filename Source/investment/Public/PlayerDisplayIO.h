@@ -21,6 +21,12 @@ protected:
 	UPROPERTY(BlueprintReadWrite)
 	FScreenPlayEntry ScreenPlayBlockToDraw;
 
+	/// <summary>
+	/// Used to message the player interface, computed during UI blueprint events
+	/// </summary>
+	UPROPERTY(BlueprintReadWrite)
+	float timeToShowScreenPlayEntry;
+
 public:
 	virtual void NativeConstruct() override;
 	//virtual void DisplayDialogLine(FDialog);
@@ -28,7 +34,12 @@ public:
 
 	// Define this in blueprint.
 	//UFUNCTION(BlueprintImplementableEvent)
-	void SetScreenPlayEntry_ThenDraw(FScreenPlayEntry& entry);
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="entry"> returns the amount of time the UI determines the line should remain on screen for. </param>
+	float SetScreenPlayEntry_ThenDraw(FScreenPlayEntry& entry);
 
 	/// <summary>
 	/// Implemented on Blueprint side to filter data to UI elements
