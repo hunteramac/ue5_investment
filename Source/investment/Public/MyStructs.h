@@ -17,6 +17,15 @@
 DECLARE_DELEGATE(FCallBack);
 
 USTRUCT(BlueprintType)
+struct FDecisionPointAction : public FTableRowBase
+{
+	GENERATED_USTRUCT_BODY()
+public: 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FText PlayerFacingActionDeclaration;
+};
+
+USTRUCT(BlueprintType)
 struct FNarration : public FTableRowBase
 {
 	GENERATED_USTRUCT_BODY()
