@@ -22,13 +22,27 @@ void UPlayerDisplayIO::ShowListChoice(TArray<FDecisionPointAction*> dpActions, F
 	//Store to data
 	ListEntries.Empty();
 	for (int i = 0; i < dpActions.Num(); ++i)
-		ListEntries[i] = (*dpActions[i]).PlayerFacingActionDeclaration;
-	ListChoiceCallBack = callBack;
+	{
+		FListEntry newEntry;
+		newEntry.entryNumber = i;
+		newEntry.callBack = callBack;
+
+		//if(callBack.IsBound())
+		//{
+		//	callBack.Execute(1);
+		//}
+
+		newEntry.entryText = (*dpActions[i]).PlayerFacingActionDeclaration;
+
+		ListEntries.Add(newEntry);
+	}
+		//ListEntries[i] = (*dpActions[i]).PlayerFacingActionDeclaration;
+	//ListChoiceCallBack = callBack;
 
 	DrawListChoice();
 }
 
-void UPlayerDisplayIO::PlayerMadeListChoice(int32 ListChoice)
-{
-	ListChoiceCallBack.ExecuteIfBound(ListChoice);
-}
+//void UPlayerDisplayIO::PlayerMadeListChoice(int32 ListChoice)
+//{
+//	ListChoiceCallBack.ExecuteIfBound(ListChoice);
+//}

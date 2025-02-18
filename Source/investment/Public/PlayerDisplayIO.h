@@ -51,13 +51,13 @@ public:
 protected:
 
 	UPROPERTY(BlueprintReadWrite)
-	TArray<FText> ListEntries;
+	TArray<FListEntry> ListEntries;
 
 
-	UFUNCTION(BlueprintCallable)
-	void PlayerMadeListChoice(int32 ListChoice);
+	//UFUNCTION(BlueprintCallable)
+	//void PlayerMadeListChoice(int32 ListChoice);
 
-	FListChoiceMade ListChoiceCallBack;
+	//FListChoiceMade ListChoiceCallBack;
 
 public:
 	void ShowListChoice(TArray<FDecisionPointAction*> dpActions, FListChoiceMade callBack);

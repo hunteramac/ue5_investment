@@ -23,18 +23,6 @@ FString UDecisionPoint::GetNodeDescription() const
 		return DecisionPoint->GetFName().ToString();
 }
 
-void UDecisionPoint::OnPlayerChoiceMade(int32 ListChoiceIndex) {
-	//verify index is not outside OutputPins
-	if (ListChoiceIndex >= OutputPins.Num())
-	{
-		//Should throw an error here.
-	}
-	else
-	{
-		TriggerOutput(OutputPins[ListChoiceIndex].PinName, false);
-	}
-}
-
 #if WITH_EDITOR
 void UDecisionPoint::PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent)
 {
@@ -67,9 +55,23 @@ void UDecisionPoint::ExecuteInput(const FName& PinName)
 		// Setup a callback for UI to message back
 		playerChoiceMade.BindUObject(this, &UDecisionPoint::OnPlayerChoiceMade);
 
+		//bool isBound = playerChoiceMade.IsBound();
+
 		// Dispatch a message to the UI to invite the player to choose from the action declarations listed.
 		GetPlayerInterface(GetWorld())->ShowDecisionPointChoice(rows, playerChoiceMade);
 		// wait on the callback
+	}
+}
+
+void UDecisionPoint::OnPlayerChoiceMade(int32 ListChoiceIndex) {
+	//verify index is not outside OutputPins
+	if (ListChoiceIndex >= OutputPins.Num())
+	{
+		//Should throw an error here.
+	}
+	else
+	{
+		TriggerOutput(OutputPins[ListChoiceIndex].PinName, false);
 	}
 }
 

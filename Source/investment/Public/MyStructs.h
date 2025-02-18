@@ -15,6 +15,7 @@
 #include "MyStructs.generated.h"
 
 DECLARE_DELEGATE(FCallBack);
+
 DECLARE_DELEGATE_OneParam(FListChoiceMade, int32 /*ListChoiceIndex*/);
 
 USTRUCT(BlueprintType)
@@ -63,4 +64,17 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray< FDialogLine > dialogLine;
+};
+
+USTRUCT(BlueprintType)
+struct FListEntry
+{
+	GENERATED_USTRUCT_BODY()
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 entryNumber;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FText entryText;
+
+	FListChoiceMade callBack;
 };
