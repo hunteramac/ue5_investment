@@ -21,6 +21,8 @@ protected:
 
 	FListEntry ListData;
 
+	FListChoiceMade callBack;
+
 	UPROPERTY(BlueprintReadWrite)
 	FText ListEntryText;
 	UPROPERTY(BlueprintReadWrite)

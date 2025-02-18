@@ -5,12 +5,15 @@
 
 void UListChoiceEntry::ListChoiceMade()
 {
-	if(ListData.callBack.IsBound())
-		ListData.callBack.ExecuteIfBound(ListData.entryNumber);
+	if(callBack.IsBound())
+		callBack.Execute(ListData.entryNumber);
 }
 
 void UListChoiceEntry::SetupListEntryData(FListEntry data)
 {
+	// For some reason, taking the callback out of the struct was necessary to ensure 'isBound'
+	// When list choice is made
+	callBack = data.callBack;
 	ListEntryText = data.entryText;
 	ListEntryIndex = data.entryNumber;
 }

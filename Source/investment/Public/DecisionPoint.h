@@ -48,6 +48,8 @@ public:
 protected:
 	virtual void ExecuteInput(const FName& PinName) override;
 	FListChoiceMade playerChoiceMade;
+
+	UFUNCTION(BlueprintCallable)
 	void OnPlayerChoiceMade(int32 ListChoiceIndex);
 
 private:

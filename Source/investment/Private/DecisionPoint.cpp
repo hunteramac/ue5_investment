@@ -53,7 +53,10 @@ void UDecisionPoint::ExecuteInput(const FName& PinName)
 		TArray<FDecisionPointAction*> rows;
 		DecisionPoint->GetAllRows("DecisionPoint", rows);
 		// Setup a callback for UI to message back
-		playerChoiceMade.BindUObject(this, &UDecisionPoint::OnPlayerChoiceMade);
+		//playerChoiceMade.BindUObject(this, &UDecisionPoint::OnPlayerChoiceMade);
+
+		//essential to use helper macro, Intellisense does not help here.
+		playerChoiceMade.BindDynamic(this, &UDecisionPoint::OnPlayerChoiceMade);
 
 		//bool isBound = playerChoiceMade.IsBound();
 

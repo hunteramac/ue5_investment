@@ -16,7 +16,7 @@
 
 DECLARE_DELEGATE(FCallBack);
 
-DECLARE_DELEGATE_OneParam(FListChoiceMade, int32 /*ListChoiceIndex*/);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FListChoiceMade, int32, ListChoiceIndex);
 
 USTRUCT(BlueprintType)
 struct FDecisionPointAction : public FTableRowBase
@@ -76,5 +76,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FText entryText;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FListChoiceMade callBack;
 };
