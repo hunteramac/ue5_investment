@@ -2,6 +2,7 @@
 
 
 #include "DecisionPoint.h"
+#include "AccessUtils.h"
 
 UDecisionPoint::UDecisionPoint(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
@@ -59,13 +60,17 @@ void UDecisionPoint::FixNode(UEdGraphNode* NewGraph)
 
 void UDecisionPoint::ExecuteInput(const FName& PinName)
 {
-	// Setup a callback for UI to message back
-	playerChoiceMade.BindUObject(this, &UDecisionPoint::OnPlayerChoiceMade);
+	if (DecisionPoint && DecisionPoint->GetRowStruct() == FDecisionPointAction::StaticStruct())
+	{
+		TArray<FDecisionPointAction*> rows;
+		DecisionPoint->GetAllRows("DecisionPoint", rows);
+		// Setup a callback for UI to message back
+		playerChoiceMade.BindUObject(this, &UDecisionPoint::OnPlayerChoiceMade);
 
-	// Dispatch a message to the UI to invite the player to choose from the action declarations listed.
-
-	// wait on the callback
-
+		// Dispatch a message to the UI to invite the player to choose from the action declarations listed.
+		GetPlayerInterface(GetWorld())->ShowDecisionPointChoice(rows, playerChoiceMade);
+		// wait on the callback
+	}
 }
 
 void UDecisionPoint::RefreshOutputs()

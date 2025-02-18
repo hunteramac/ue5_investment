@@ -15,6 +15,7 @@
 #include "MyStructs.generated.h"
 
 DECLARE_DELEGATE(FCallBack);
+DECLARE_DELEGATE_OneParam(FListChoiceMade, int32 /*ListChoiceIndex*/);
 
 USTRUCT(BlueprintType)
 struct FDecisionPointAction : public FTableRowBase

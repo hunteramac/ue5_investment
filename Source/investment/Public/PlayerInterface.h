@@ -26,6 +26,8 @@ public:
 	/// <param name="rows"> Assume the structs are valid!</param>
 	void DoTextScreenPlayPortrayal(TArray<FScreenPlayEntry*> rows, FCallBack delegate);
 
+	void ShowDecisionPointChoice(TArray<FDecisionPointAction*> dpActions, FListChoiceMade callBack);
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;

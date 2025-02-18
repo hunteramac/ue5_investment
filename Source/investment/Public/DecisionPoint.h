@@ -8,8 +8,6 @@
 #include "Kismet/BlueprintAsyncActionBase.h"
 #include "DecisionPoint.generated.h"
 
-DECLARE_DELEGATE_OneParam(FListChoiceMade, int32 /*ListChoiceIndex*/);
-
 /**
  * 
  */

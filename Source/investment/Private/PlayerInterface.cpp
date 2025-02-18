@@ -59,6 +59,11 @@ void UPlayerInterface::DoTextScreenPlayPortrayal(TArray<FScreenPlayEntry*> Scree
 	TextScreenPlayPortrayal(ScreenPlayEntries, callBack, 0);
 }
 
+void UPlayerInterface::ShowDecisionPointChoice(TArray<FDecisionPointAction*> dpActions, FListChoiceMade callBack)
+{
+	playerDisplay->ShowListChoice(dpActions, callBack);
+}
+
 
 // Called when the game starts
 void UPlayerInterface::BeginPlay()

@@ -40,10 +40,30 @@ public:
 	/// </summary>
 	/// <param name="entry"> returns the amount of time the UI determines the line should remain on screen for. </param>
 	float SetScreenPlayEntry_ThenDraw(FScreenPlayEntry& entry);
+	
 
 	/// <summary>
 	/// Implemented on Blueprint side to filter data to UI elements
 	/// </summary>
 	UFUNCTION(BlueprintImplementableEvent)
 	void DrawScreenPlayEntryFromData();
+
+protected:
+
+	UPROPERTY(BlueprintReadWrite)
+	TArray<FText> ListEntries;
+
+
+	UFUNCTION(BlueprintCallable)
+	void PlayerMadeListChoice(int32 ListChoice);
+
+	FListChoiceMade ListChoiceCallBack;
+
+public:
+	void ShowListChoice(TArray<FDecisionPointAction*> dpActions, FListChoiceMade callBack);
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void DrawListChoice();
+
+
 };

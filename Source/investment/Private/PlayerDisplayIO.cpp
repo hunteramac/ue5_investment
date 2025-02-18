@@ -16,3 +16,19 @@ float UPlayerDisplayIO::SetScreenPlayEntry_ThenDraw(FScreenPlayEntry& entry)
 
 	return timeToShowScreenPlayEntry;
 }
+
+void UPlayerDisplayIO::ShowListChoice(TArray<FDecisionPointAction*> dpActions, FListChoiceMade callBack)
+{
+	//Store to data
+	ListEntries.Empty();
+	for (int i = 0; i < dpActions.Num(); ++i)
+		ListEntries[i] = (*dpActions[i]).PlayerFacingActionDeclaration;
+	ListChoiceCallBack = callBack;
+
+	DrawListChoice();
+}
+
+void UPlayerDisplayIO::PlayerMadeListChoice(int32 ListChoice)
+{
+	ListChoiceCallBack.ExecuteIfBound(ListChoice);
+}
