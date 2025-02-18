@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "PlayerDisplayIO.h"
 #include "MyStructs.h"
 
 #include "ListChoiceEntry.generated.h"
@@ -20,6 +21,8 @@ class INVESTMENT_API UListChoiceEntry : public UUserWidget
 protected:
 
 	FListEntry ListData;
+
+	UPlayerDisplayIO* parent;
 
 	FListChoiceMade callBack;
 

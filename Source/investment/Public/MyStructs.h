@@ -65,17 +65,3 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray< FDialogLine > dialogLine;
 };
-
-USTRUCT(BlueprintType)
-struct FListEntry
-{
-	GENERATED_USTRUCT_BODY()
-public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 entryNumber;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FText entryText;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FListChoiceMade callBack;
-};

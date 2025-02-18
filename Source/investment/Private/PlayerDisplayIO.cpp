@@ -26,6 +26,7 @@ void UPlayerDisplayIO::ShowListChoice(TArray<FDecisionPointAction*> dpActions, F
 		FListEntry newEntry;
 		newEntry.entryNumber = i;
 		newEntry.callBack = callBack;
+		newEntry.parent = this;
 
 		//if(callBack.IsBound())
 		//{
