@@ -11,7 +11,7 @@
  * 
  */
 UCLASS(NotBlueprintable, meta = (DisplayName = "Portray"))
-class INVESTMENT_API UPortray : public UFlowNode
+class INVESTMENT_API UPortray final : public UFlowNode
 {
 	GENERATED_UCLASS_BODY()
 

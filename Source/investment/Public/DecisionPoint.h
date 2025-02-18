@@ -13,28 +13,45 @@ DECLARE_DELEGATE_OneParam(FListChoiceMade, int32 /*ListChoiceIndex*/);
 /**
  * 
  */
-UCLASS()
-class INVESTMENT_API UDecisionPoint : public UFlowNode
+UCLASS(NotBlueprintable, meta = (DisplayName = "Decision Point"))
+class INVESTMENT_API UDecisionPoint final : public UFlowNode
 {
-	GENERATED_BODY()
+	GENERATED_UCLASS_BODY()
 
 public:
 	UPROPERTY(EditAnywhere, Category = "DecisionPoint")
-	UDataTable* DecisionPointActions;
+	UDataTable* DecisionPoint;
+
+	UPROPERTY(EditAnywhere, Category = "Utility")
+	bool ForceUpdateNodeLinks;
 
 #if WITH_EDITOR
 public:
 	/// <summary>
-	/// Show in the Flow graph if the input screenplay data table is provided, if it has valid row entries.
+	/// Show in the Flow graph if the input decision point data table is provided, if it has valid row entries.
 	/// If it does, show the decision point data table name above the node give an indicator to content designer of where action choices are coming from without
 	/// needing to click onto the node and see it's details.
 	/// </summary>
 	/// <returns></returns>
 	virtual FString GetNodeDescription() const override;
+
+	//virtual bool CanUserAddOutput() const override { return true; }
+
+	/// <summary>
+	/// Parse input data table and update out pins.
+	/// </summary>
+	/// <param name="PropertyChangedEvent"></param>
+	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override;
+
+	virtual void FixNode(UEdGraphNode* NewGraph) override;
+
 #endif
 
 protected:
 	virtual void ExecuteInput(const FName& PinName) override;
 	FListChoiceMade playerChoiceMade;
 	void OnPlayerChoiceMade(int32 ListChoiceIndex);
+
+private:
+	void RefreshOutputs();
 };

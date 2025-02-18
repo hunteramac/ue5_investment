@@ -7,7 +7,9 @@
 UPortray::UPortray(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
-
+#if WITH_EDITOR
+	Category = TEXT("SceneGraph");
+#endif
 }
 
 void UPortray::ExecuteInput(const FName& PinName)
