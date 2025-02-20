@@ -43,6 +43,15 @@ void UPlayerDisplayIO::ShowListChoice(TArray<FDecisionPointAction*> dpActions, F
 	DrawListChoice();
 }
 
+void UPlayerDisplayIO::ShowAtomicListChoice(FText ActionDeclaration, FListChoiceMade ActionHandler) {
+	FListEntry NewEntry(0, ActionDeclaration, ActionHandler, this);
+
+	ListEntries.Add(NewEntry);
+
+	// The assumption is if list choice allready exists, it will just add the most recently added entry.
+	DrawListChoice();
+}
+
 //void UPlayerDisplayIO::PlayerMadeListChoice(int32 ListChoice)
 //{
 //	ListChoiceCallBack.ExecuteIfBound(ListChoice);

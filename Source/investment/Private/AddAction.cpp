@@ -17,7 +17,7 @@ UAddAction::UAddAction(const FObjectInitializer& ObjectInitializer)
 	RefreshOutputs();
 }
 
-void UAddAction::OnActionHandle()
+void UAddAction::OnActionHandle(int32 ignore)
 {
 	TriggerOutput(OutputPins[1].PinName, true);
 }
@@ -39,12 +39,14 @@ void UAddAction::PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEv
 void UAddAction::ExecuteInput(const FName& PinName)
 {
 	// Setup the action handler 
-	ActionHandlerDelegate.BindUObject(this, &UAddAction::OnActionHandle);
+	ActionHandlerDelegate.BindDynamic(this, &UAddAction::OnActionHandle);
+		
+		//.BindUObject(this, &UAddAction::OnActionHandle);
 	//and send a request to the interface to display it to the player
-	//GetPlayerInterface(GetWorld())->
+	GetPlayerInterface(GetWorld())->ShowContextAction(ActionDeclaration, ActionHandlerDelegate);
 
 	// Then continue main execution.
-	TriggerFirstOutput(true);
+	TriggerFirstOutput(false);
 }
 
 void UAddAction::RefreshOutputs()

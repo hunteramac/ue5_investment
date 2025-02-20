@@ -64,6 +64,14 @@ void UPlayerInterface::ShowDecisionPointChoice(TArray<FDecisionPointAction*> dpA
 	playerDisplay->ShowListChoice(dpActions, callBack);
 }
 
+void UPlayerInterface::ShowContextAction(FText ActionDeclaration, FListChoiceMade ActionHandler)
+{
+	playerDisplay->ShowAtomicListChoice(ActionDeclaration, ActionHandler);
+		/*FPossibleContextAction(
+			ActionDeclaration, 
+			ActionHandler)*/
+}
+
 
 // Called when the game starts
 void UPlayerInterface::BeginPlay()

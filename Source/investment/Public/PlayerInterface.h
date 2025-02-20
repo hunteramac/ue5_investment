@@ -28,6 +28,9 @@ public:
 
 	void ShowDecisionPointChoice(TArray<FDecisionPointAction*> dpActions, FListChoiceMade callBack);
 
+	void ShowContextAction(FText ActionDeclaration, FListChoiceMade ActionHandler);
+
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;

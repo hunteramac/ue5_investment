@@ -79,6 +79,8 @@ protected:
 public:
 	void ShowListChoice(TArray<FDecisionPointAction*> dpActions, FListChoiceMade callBack);
 
+	void ShowAtomicListChoice(FText ActionDeclaration, FListChoiceMade ActionHandler);
+
 	UFUNCTION(BlueprintImplementableEvent)
 	void DrawListChoice();
 

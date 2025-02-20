@@ -16,6 +16,8 @@
 
 DECLARE_DELEGATE(FCallBack);
 
+DECLARE_DYNAMIC_DELEGATE(FBlueprintCallBack);
+
 DECLARE_DYNAMIC_DELEGATE_OneParam(FListChoiceMade, int32, ListChoiceIndex);
 
 USTRUCT(BlueprintType)
@@ -64,4 +66,17 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray< FDialogLine > dialogLine;
+};
+
+USTRUCT(BlueprintType)
+struct FPossibleContextAction
+{
+	GENERATED_USTRUCT_BODY()
+public:
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FText ActionDeclaration;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FBlueprintCallBack ContextActionHandler;
 };

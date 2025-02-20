@@ -18,8 +18,9 @@ public:
 	UPROPERTY(EditAnywhere)
 	FText ActionDeclaration;
 
-	void OnActionHandle();
-	FCallBack ActionHandlerDelegate;
+	UFUNCTION(BlueprintCallable)
+	void OnActionHandle(int32 ignore);
+	FListChoiceMade ActionHandlerDelegate;
 
 #if WITH_EDITOR
 public:
