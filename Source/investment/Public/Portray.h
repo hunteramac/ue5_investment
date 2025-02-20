@@ -19,6 +19,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = "ScreenPlay")
 	UDataTable* screenPlay;
 
+	UPROPERTY(EditAnywhere, Category = "QuickBuild")
+	FText PortrayalNarration;
+
 protected:
 	virtual void ExecuteInput(const FName& PinName) override;
 

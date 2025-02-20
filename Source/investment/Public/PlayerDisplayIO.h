@@ -38,6 +38,9 @@ protected:
 	UPROPERTY(BlueprintReadWrite)
 	FScreenPlayEntry ScreenPlayBlockToDraw;
 
+	UPROPERTY(BlueprintReadWrite)
+	FText RawPortrayalNarration;
+
 	/// <summary>
 	/// Used to message the player interface, computed during UI blueprint events
 	/// </summary>
@@ -58,6 +61,7 @@ public:
 	/// <param name="entry"> returns the amount of time the UI determines the line should remain on screen for. </param>
 	float SetScreenPlayEntry_ThenDraw(FScreenPlayEntry& entry);
 	
+	float PortrayRawTextAsNarration(FText PortrayalNarration);
 
 	/// <summary>
 	/// Implemented on Blueprint side to filter data to UI elements

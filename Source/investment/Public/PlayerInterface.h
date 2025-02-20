@@ -25,6 +25,7 @@ public:
 	/// </summary>
 	/// <param name="rows"> Assume the structs are valid!</param>
 	void DoTextScreenPlayPortrayal(TArray<FScreenPlayEntry*> rows, FCallBack delegate);
+	void DoTextScreenPlayPortrayal(FText PortrayalNarration, FCallBack delegate);
 
 	void ShowDecisionPointChoice(TArray<FDecisionPointAction*> dpActions, FListChoiceMade callBack);
 
@@ -42,5 +43,8 @@ protected:
 
 public:	
 	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;		
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+private:
+	void OnPortrayalFinished(FCallBack callBack);
 };

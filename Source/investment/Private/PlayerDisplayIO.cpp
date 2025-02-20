@@ -17,6 +17,15 @@ float UPlayerDisplayIO::SetScreenPlayEntry_ThenDraw(FScreenPlayEntry& entry)
 	return timeToShowScreenPlayEntry;
 }
 
+float UPlayerDisplayIO::PortrayRawTextAsNarration(FText PortrayalNarration)
+{
+	RawPortrayalNarration = PortrayalNarration;
+
+	DrawScreenPlayEntryFromData();
+
+	return timeToShowScreenPlayEntry;
+}
+
 void UPlayerDisplayIO::ShowListChoice(TArray<FDecisionPointAction*> dpActions, FListChoiceMade callBack)
 {
 	//Store to data

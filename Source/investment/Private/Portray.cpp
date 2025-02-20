@@ -15,9 +15,19 @@ UPortray::UPortray(const FObjectInitializer& ObjectInitializer)
 
 void UPortray::ExecuteInput(const FName& PinName)
 {
-	if(!screenPlay)
-		TriggerFirstOutput(true);
+	// Not a great design method, for prototyping, we'll have text override the data table handling
+	if (!PortrayalNarration.IsEmpty())
+	{
+		finPortrayal.BindUObject(this, &UPortray::OnPortrayFinished);
+		GetPlayerInterface(GetWorld())->DoTextScreenPlayPortrayal(PortrayalNarration, finPortrayal);
+		return;
+	}
 
+	if (!screenPlay)
+	{
+		TriggerFirstOutput(true);
+		return;
+	}
 
 	// Proceed only if data table has screenplay format.
 	if (screenPlay->GetRowStruct() != FScreenPlayEntry::StaticStruct())
@@ -52,6 +62,11 @@ void UPortray::OnPortrayFinished()
 
 FString UPortray::GetNodeDescription() const
 {
+	if (!PortrayalNarration.IsEmpty())
+	{
+		return FString(PortrayalNarration.ToString());
+	}
+
 	if (!screenPlay)
 		return FString("No screenplay");
 	if (screenPlay->GetRowStruct() != FScreenPlayEntry::StaticStruct())

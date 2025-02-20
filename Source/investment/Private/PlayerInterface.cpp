@@ -28,7 +28,7 @@ void UPlayerInterface::TextScreenPlayPortrayal(TArray<FScreenPlayEntry*> ScreenP
 	//Base case, if we have iterated through elements, cease recursion and execute callback.
 	if (thisCurInd >= ScreenPlayEntries.Num())
 	{
-		callBack.ExecuteIfBound();
+		OnPortrayalFinished(callBack);
 		return;
 	}
 	else { //I think  there's an async thread bug here, if we don't have this else condition, things break
@@ -57,6 +57,28 @@ void UPlayerInterface::DoTextScreenPlayPortrayal(TArray<FScreenPlayEntry*> Scree
 {
 	// Start recursion
 	TextScreenPlayPortrayal(ScreenPlayEntries, callBack, 0);
+}
+
+void UPlayerInterface::OnPortrayalFinished(FCallBack callBack) {
+	callBack.ExecuteIfBound();
+}
+
+
+void UPlayerInterface::DoTextScreenPlayPortrayal(FText PortrayalNarration, FCallBack delegate)
+{
+	float timeToDisplayEntry = playerDisplay->PortrayRawTextAsNarration(PortrayalNarration);
+
+	FTimerHandle UnusedHandle;
+	FTimerDelegate TimerDel;
+
+	TimerDel.BindUObject(this, &UPlayerInterface::OnPortrayalFinished, delegate);
+
+	GetOwner()->GetWorldTimerManager().SetTimer(
+		UnusedHandle,
+		TimerDel,
+		timeToDisplayEntry,
+		false
+	);
 }
 
 void UPlayerInterface::ShowDecisionPointChoice(TArray<FDecisionPointAction*> dpActions, FListChoiceMade callBack)
