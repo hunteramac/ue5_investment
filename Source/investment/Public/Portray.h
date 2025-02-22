@@ -19,7 +19,13 @@ public:
 	UPROPERTY(EditAnywhere, Category = "ScreenPlay")
 	UDataTable* screenPlay;
 
-	UPROPERTY(EditAnywhere, Category = "QuickBuild")
+	//UPROPERTY(EditAnywhere, Category = "Table")
+	//FName tableId;
+
+	//UPROPERTY(EditAnywhere, Category = "Table")
+	//FString tableKey;
+
+	UPROPERTY(EditAnywhere, Category = "Table")
 	FText PortrayalNarration;
 
 protected:
@@ -37,5 +43,10 @@ public:
 	/// </summary>
 	/// <returns></returns>
 	virtual FString GetNodeDescription() const override;
+
+	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override;
 #endif
+
+private:
+	void RefreshOutputs();
 };

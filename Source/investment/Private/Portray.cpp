@@ -11,6 +11,40 @@ UPortray::UPortray(const FObjectInitializer& ObjectInitializer)
 #if WITH_EDITOR
 	Category = TEXT("SceneGraph");
 #endif
+
+	// We want to use the action declaration text sent to the player, on the outpin.
+	RefreshOutputs();
+}
+
+void UPortray::PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent)
+{
+	Super::PostEditChangeProperty(PropertyChangedEvent);
+
+	if (!PropertyChangedEvent.Property)
+	{
+		return;
+	}
+	else
+	{
+		//// Use the table ID and key if provided instead.
+		//if (!tableId.IsNone() && !tableKey.IsEmpty())
+		//{
+		//	//FTextKey tableKeyReal = FTextKey(tableKey);
+		//	PortrayalNarration.FromStringTable(tableId, tableKey);
+		//	return;
+		//}
+
+		RefreshOutputs();
+		OnReconstructionRequested.ExecuteIfBound();
+	}
+}
+
+void UPortray::RefreshOutputs()
+{
+	if (!PortrayalNarration.IsEmpty())
+		OutputPins[0].PinName = FName(PortrayalNarration.ToString());
+	else
+		OutputPins[0].PinName = "Text Portrayal";
 }
 
 void UPortray::ExecuteInput(const FName& PinName)
@@ -64,7 +98,15 @@ FString UPortray::GetNodeDescription() const
 {
 	if (!PortrayalNarration.IsEmpty())
 	{
-		return FString(PortrayalNarration.ToString());
+		if (PortrayalNarration.IsFromStringTable())
+		{
+			FName tableId;
+			FTextKey textKey;
+			FTextInspector::GetTableIdAndKey(PortrayalNarration, tableId, textKey);
+			return textKey.ToString();//PortrayalNarration.ToString());
+		}
+		else
+			return FString("");
 	}
 
 	if (!screenPlay)
