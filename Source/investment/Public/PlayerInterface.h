@@ -33,6 +33,7 @@ public:
 
 
 protected:
+
 	// Called when the game starts
 	virtual void BeginPlay() override;
 	
@@ -44,6 +45,13 @@ protected:
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+	UFUNCTION(BlueprintCallable)
+	void SkipPortrayalTimer();
+
+protected:
+	FTimerHandle PortrayalTimerHandle;
+	FTimerDelegate TimerDel;
 
 private:
 	void OnPortrayalFinished(FCallBack callBack);

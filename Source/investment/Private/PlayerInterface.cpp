@@ -34,8 +34,8 @@ void UPlayerInterface::TextScreenPlayPortrayal(TArray<FScreenPlayEntry*> ScreenP
 	else { //I think  there's an async thread bug here, if we don't have this else condition, things break
 
 		//playerDisplay->DisplayScreenPlayEntry(ScreenPlayEntries[0]);
-		FTimerHandle UnusedHandle;
-		FTimerDelegate TimerDel;
+		//FTimerHandle UnusedHandle;
+		//FTimerDelegate TimerDel;
 
 		// get the value pointed to by DE refencing it
 		float timeToDisplayEntry = playerDisplay->SetScreenPlayEntry_ThenDraw(*ScreenPlayEntries[thisCurInd]);
@@ -45,7 +45,7 @@ void UPlayerInterface::TextScreenPlayPortrayal(TArray<FScreenPlayEntry*> ScreenP
 
 		//FCallBack UnusedHandle;
 		GetOwner()->GetWorldTimerManager().SetTimer(
-			UnusedHandle,
+			PortrayalTimerHandle,
 			TimerDel,
 			timeToDisplayEntry,
 			false
@@ -68,13 +68,10 @@ void UPlayerInterface::DoTextScreenPlayPortrayal(FText PortrayalNarration, FCall
 {
 	float timeToDisplayEntry = playerDisplay->PortrayRawTextAsNarration(PortrayalNarration);
 
-	FTimerHandle UnusedHandle;
-	FTimerDelegate TimerDel;
-
 	TimerDel.BindUObject(this, &UPlayerInterface::OnPortrayalFinished, delegate);
 
 	GetOwner()->GetWorldTimerManager().SetTimer(
-		UnusedHandle,
+		PortrayalTimerHandle,
 		TimerDel,
 		timeToDisplayEntry,
 		false
@@ -111,5 +108,14 @@ void UPlayerInterface::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
+}
+
+void UPlayerInterface::SkipPortrayalTimer()
+{
+	GetWorld()->GetTimerManager().PauseTimer(
+		PortrayalTimerHandle
+	);
+
+	TimerDel.ExecuteIfBound();
 }
 
