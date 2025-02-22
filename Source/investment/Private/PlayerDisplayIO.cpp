@@ -61,6 +61,12 @@ void UPlayerDisplayIO::ShowAtomicListChoice(FText ActionDeclaration, FListChoice
 	DrawListChoice();
 }
 
+void UPlayerDisplayIO::CleanupListChoice()
+{
+	ListEntries.Empty();
+	CleanupListChoiceUI();
+}
+
 //void UPlayerDisplayIO::PlayerMadeListChoice(int32 ListChoice)
 //{
 //	ListChoiceCallBack.ExecuteIfBound(ListChoice);

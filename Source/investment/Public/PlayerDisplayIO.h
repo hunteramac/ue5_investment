@@ -89,7 +89,8 @@ public:
 	void DrawListChoice();
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
-	void CleanupListChoice();
+	void CleanupListChoiceUI();
 
+	void CleanupListChoice();
 
 };
