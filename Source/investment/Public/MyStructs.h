@@ -14,6 +14,8 @@
 #include "Kismet/BlueprintAsyncActionBase.h"
 #include "MyStructs.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FBpAssignable);
+
 DECLARE_DYNAMIC_DELEGATE(FCallBack);
 
 DECLARE_DYNAMIC_DELEGATE(FBlueprintCallBack);

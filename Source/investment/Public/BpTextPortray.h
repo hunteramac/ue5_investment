@@ -7,8 +7,6 @@
 #include "MyStructs.h"
 #include "BpTextPortray.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FBpAssignable);
-
 /**
  * The designer puts this node into a blueprint graph and feeds it a text portrayal block. 
  * The implementation links into the UI systems to display/ portray the narration to the player.
