@@ -91,6 +91,11 @@ void UPlayerInterface::ShowContextAction(FText ActionDeclaration, FListChoiceMad
 			ActionHandler)*/
 }
 
+void UPlayerInterface::ClearContextActions()
+{
+	playerDisplay->CleanupListChoice();
+}
+
 
 // Called when the game starts
 void UPlayerInterface::BeginPlay()

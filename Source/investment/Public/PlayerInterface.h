@@ -31,6 +31,7 @@ public:
 
 	void ShowContextAction(FText ActionDeclaration, FListChoiceMade ActionHandler);
 
+	void ClearContextActions();
 
 protected:
 
