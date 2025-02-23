@@ -52,7 +52,7 @@ void UPortray::ExecuteInput(const FName& PinName)
 	// Not a great design method, for prototyping, we'll have text override the data table handling
 	if (!PortrayalNarration.IsEmpty())
 	{
-		finPortrayal.BindUObject(this, &UPortray::OnPortrayFinished);
+		finPortrayal.BindDynamic(this, &UPortray::OnPortrayFinished);//BindUObject(this, &UPortray::OnPortrayFinished);
 		GetPlayerInterface(GetWorld())->DoTextScreenPlayPortrayal(PortrayalNarration, finPortrayal);
 		return;
 	}
@@ -72,7 +72,7 @@ void UPortray::ExecuteInput(const FName& PinName)
 	// Figure out if what designer provided is valid. If it is, tell GM to portray it.
 	// Where it is the blocks, NOT, the table, is passed down.
 
-	finPortrayal.BindUObject(this, &UPortray::OnPortrayFinished);
+	finPortrayal.BindDynamic(this, &UPortray::OnPortrayFinished);
 
 	TArray<FScreenPlayEntry*> rows;
 	screenPlay->GetAllRows("portray", rows);

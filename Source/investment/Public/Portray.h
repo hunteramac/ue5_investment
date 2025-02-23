@@ -31,6 +31,7 @@ public:
 protected:
 	virtual void ExecuteInput(const FName& PinName) override;
 
+	UFUNCTION()
 	void OnPortrayFinished();
 
 	FCallBack finPortrayal;
