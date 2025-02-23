@@ -13,6 +13,7 @@ UPortray::UPortray(const FObjectInitializer& ObjectInitializer)
 #endif
 
 	// We want to use the action declaration text sent to the player, on the outpin.
+	OutputPins[0].PinName = "Out";
 	RefreshOutputs();
 }
 
@@ -41,10 +42,13 @@ void UPortray::PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEven
 
 void UPortray::RefreshOutputs()
 {
-	if (!PortrayalNarration.IsEmpty())
-		OutputPins[0].PinName = FName(PortrayalNarration.ToString());
-	else
-		OutputPins[0].PinName = "Text Portrayal";
+	FName inputName = InputPins[0].PinName;
+
+	OutputPins[0].PinName = "Out";
+	//if (!PortrayalNarration.IsEmpty())
+	//	OutputPins[0].PinName = FName(PortrayalNarration.ToString());
+	//else
+	//	OutputPins[0].PinName = "Text Portrayal";
 }
 
 void UPortray::ExecuteInput(const FName& PinName)
