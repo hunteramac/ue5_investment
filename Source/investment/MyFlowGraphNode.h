@@ -3,18 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "MyStructs.h"
 #include "Graph/Nodes/FlowGraphNode.h"
 #include "MyFlowGraphNode.generated.h"
 
-DECLARE_DYNAMIC_DELEGATE(FPassHandler);
-USTRUCT(BlueprintType)
-struct FDelegateContainer
-{
-	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FPassHandler handler;
-};
 
 /**
  * 

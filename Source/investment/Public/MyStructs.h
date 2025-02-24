@@ -82,3 +82,13 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FBlueprintCallBack ContextActionHandler;
 };
+
+DECLARE_DYNAMIC_DELEGATE(FPassHandler);
+USTRUCT(BlueprintType)
+struct FDelegateContainer
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FPassHandler handler;
+};
