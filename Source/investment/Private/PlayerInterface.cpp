@@ -117,10 +117,15 @@ void UPlayerInterface::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 
 void UPlayerInterface::SkipPortrayalTimer()
 {
-	GetWorld()->GetTimerManager().PauseTimer(
-		PortrayalTimerHandle
-	);
+	// if timer running
+	if (GetWorld()->GetTimerManager().IsTimerActive(PortrayalTimerHandle)) 
+	{
+		GetWorld()->GetTimerManager().PauseTimer(
+			PortrayalTimerHandle
+		);
 
-	TimerDel.ExecuteIfBound();
+		TimerDel.ExecuteIfBound();
+	}
+
 }
 
