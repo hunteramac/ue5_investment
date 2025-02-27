@@ -6,13 +6,13 @@
 
 void UListChoiceEntry::ListChoiceMade()
 {
+	//Ensure UI cleans up the list.
+	parent->CleanupListChoice();
+
 	// It'd probably be better (SOLID) if this was a chain of delegates
 	// Where callBack would go to the UI, go to the interface, and to the flowNode
 	if(callBack.IsBound())
 		callBack.Execute(ListEntryIndex);
-
-	//Ensure UI cleans up the list.
-	parent->CleanupListChoice();
 }
 
 void UListChoiceEntry::SetupListEntryData(FListEntry data)
