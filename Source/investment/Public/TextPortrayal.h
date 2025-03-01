@@ -12,6 +12,9 @@ struct FTextPortrayalInfo
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere)
+	FText actionDeclaration;
+
+	UPROPERTY(EditAnywhere)
 	FText portrayal;
 };
 

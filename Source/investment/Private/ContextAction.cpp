@@ -4,10 +4,23 @@
 #include "ContextAction.h"
 #include "AccessUtils.h"
 
-UContextAction* UContextAction::AddAction(UObject* InWorldContextObject, FText ActionDeclaration)
+UContextAction* UContextAction::AddAction(
+	UObject* InWorldContextObject, 
+	FText ActionDeclaration,
+	UTextPortrayal* textPortrayal
+)
 {
+	
 	UContextAction* NewAction = NewObject< UContextAction>();
-	NewAction->ActionDeclaration = ActionDeclaration;
+
+	if (textPortrayal) {
+		NewAction->ActionDeclaration = FText::FromName(textPortrayal->GetFName());
+	}
+	else {
+		NewAction->ActionDeclaration = ActionDeclaration;
+	}
+
+	
 	NewAction->WorldContextObject = InWorldContextObject;
 	return NewAction;
 }

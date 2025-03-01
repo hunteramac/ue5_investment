@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintAsyncActionBase.h"
 #include "MyStructs.h"
+#include "TextPortrayal.h"
 #include "ContextAction.generated.h"
 
 //DECLARE_DYNAMIC_MULTICAST_DELEGATE(FBpAssignable);
@@ -19,7 +20,9 @@ class INVESTMENT_API UContextAction : public UBlueprintAsyncActionBase
 public:
 	UFUNCTION(BlueprintCallable, BlueprintCosmetic, meta = (BlueprintInternalUseOnly = "true", WorldContext = "InWorldContextObject"))
 	static UContextAction* AddAction(
-		UObject* InWorldContextObject, FText ActionDeclaration
+		UObject* InWorldContextObject, 
+		FText ActionDeclaration,
+		UTextPortrayal* textPortrayal
 	);
 
 	virtual void Activate() override;
