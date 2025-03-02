@@ -14,7 +14,10 @@ UContextAction* UContextAction::AddAction(
 	UContextAction* NewAction = NewObject< UContextAction>();
 
 	if (textPortrayal) {
-		NewAction->ActionDeclaration = FText::FromName(textPortrayal->GetFName());
+		if (textPortrayal->TextPortrayal.actionDeclaration.IsEmpty())
+			NewAction->ActionDeclaration = FText::FromName(textPortrayal->GetFName());
+		else
+			NewAction->ActionDeclaration = textPortrayal->TextPortrayal.actionDeclaration;
 	}
 	else {
 		NewAction->ActionDeclaration = ActionDeclaration;

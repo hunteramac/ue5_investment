@@ -10,7 +10,7 @@ USTRUCT()
 struct FTextPortrayalInfo
 {
 	GENERATED_BODY()
-
+public:
 	UPROPERTY(EditAnywhere)
 	FText actionDeclaration;
 
@@ -26,6 +26,7 @@ class INVESTMENT_API UTextPortrayal : public UDataAsset
 {
 	GENERATED_BODY()
 
+public:
 	UPROPERTY(EditAnywhere)
 	FTextPortrayalInfo TextPortrayal;
 	

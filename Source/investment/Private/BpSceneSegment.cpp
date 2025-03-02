@@ -16,13 +16,27 @@ UBpSceneSegment* UBpSceneSegment::SceneSegment(UObject* InWorldContextObject, UT
 
 void UBpSceneSegment::Activate()
 {
+	FText textToShow;
 	// get text from data asset
-	FName name = TextPortrayalAsset->GetFName();
-
-	FText nameText = FText::FromString(name.ToString());
-
+	if (TextPortrayalAsset)
+	{
+		if (TextPortrayalAsset->TextPortrayal.portrayal.IsEmpty())
+		{
+			FName name = TextPortrayalAsset->GetFName();
+			textToShow = FText::FromString(name.ToString());
+		}
+		else
+		{
+			textToShow = TextPortrayalAsset->TextPortrayal.portrayal;
+		}
+	}
+	else 
+	{
+		textToShow = FText::FromString(FString("Text asset not provided."));
+	}
+	
 	callBack.BindDynamic(this, &UBpSceneSegment::PortrayalCompleted);
-	GetPlayerInterface(worldContextObject->GetWorld())->DoTextScreenPlayPortrayal(nameText, callBack);
+	GetPlayerInterface(worldContextObject->GetWorld())->DoTextScreenPlayPortrayal(textToShow, callBack);
 }
 
 void UBpSceneSegment::PortrayalCompleted()
