@@ -20,21 +20,25 @@ void UBpSceneSegment::Activate()
 	// get text from data asset
 	if (TextPortrayalAsset)
 	{
+		FName name = TextPortrayalAsset->GetFName();
+
+		UE_LOG(LogTemp, Display, TEXT("%s"), *name.ToString());
 		if (TextPortrayalAsset->TextPortrayal.portrayal.IsEmpty())
 		{
-			FName name = TextPortrayalAsset->GetFName();
+			
 			textToShow = FText::FromString(name.ToString());
 		}
 		else
 		{
 			textToShow = TextPortrayalAsset->TextPortrayal.portrayal;
+			UE_LOG(LogTemp, Display, TEXT("%s"), *textToShow.ToString());
 		}
 	}
 	else 
 	{
 		textToShow = FText::FromString(FString("Text asset not provided."));
 	}
-	
+
 	callBack.BindDynamic(this, &UBpSceneSegment::PortrayalCompleted);
 	GetPlayerInterface(worldContextObject->GetWorld())->DoTextScreenPlayPortrayal(textToShow, callBack);
 }
