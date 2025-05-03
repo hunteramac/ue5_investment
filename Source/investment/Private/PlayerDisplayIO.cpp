@@ -61,6 +61,22 @@ void UPlayerDisplayIO::ShowAtomicListChoice(FText ActionDeclaration, FListChoice
 	DrawListChoice();
 }
 
+void UPlayerDisplayIO::AddActionGroup(FText ElementTag)
+{
+	//for now, we won't check collisions, though we'll definetly need to
+	// 
+	//add an empty action group
+	FContextElementActionGroup NewContextElement;
+	NewContextElement.ElementTag = ElementTag;
+
+	// Its very important to ensure WAITING on executing flow graph, otherwise it can run before 
+	// UI is setup.
+	ContextElements.Add(NewContextElement);
+	
+	//// Calling this to 'update' the UI
+	DrawListChoice();
+}
+
 void UPlayerDisplayIO::CleanupListChoice()
 {
 	ListEntries.Empty();

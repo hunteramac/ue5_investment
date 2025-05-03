@@ -2,14 +2,24 @@
 
 
 #include "ContextElement.h"
+#include "AccessUtils.h"
 
-UContextElement* UContextElement::AddContextElement(UObject* InWorldContextObject, FText ElementName)
+UContextElement* UContextElement::AddContextElement(
+	UObject* InWorldContextObject,
+	FText ContextElement,
+	bool MakeDefaultSelection
+)
 {
 	UContextElement* NewElement = NewObject<UContextElement>();
+	NewElement->WorldContextObject = InWorldContextObject;
+	NewElement->ContextElementName = ContextElement;
 	return NewElement;
 }
 
 void UContextElement::Activate()
 {
-	// Setup access to the exec pin which defines actions
+	// Talk the UI, setup a context element to group actions under with the same tag
+
+	// If designer set context as default, UI makes it selected at start.
+	GetPlayerInterface(WorldContextObject->GetWorld())->AddContextElement(ContextElementName);
 }

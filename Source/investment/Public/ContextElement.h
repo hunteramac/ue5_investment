@@ -18,14 +18,18 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintCosmetic, meta = (BlueprintInternalUseOnly = "true", WorldContext = "InWorldContextObject"))
 	static UContextElement* AddContextElement(
 		UObject* InWorldContextObject,
-		FText ElementName
+		FText ElementName,
+		bool MakeDefaultSelection
 	);
 
 	virtual void Activate() override;
 
-	// Nodes exec pin
-	UPROPERTY(BlueprintAssignable)
-	FBpAssignable ContextActions;
+	//// Nodes exec pin
+	//UPROPERTY(BlueprintAssignable)
+	//FBpAssignable ContextActions;
 
 	FText ContextElementName;
+
+protected:
+	TObjectPtr<UObject> WorldContextObject;
 };

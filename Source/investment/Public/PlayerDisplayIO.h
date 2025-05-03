@@ -25,6 +25,18 @@ public:
 	UPlayerDisplayIO* parent;
 };
 
+USTRUCT(BlueprintType)
+struct FContextElementActionGroup
+{
+	GENERATED_USTRUCT_BODY()
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FText ElementTag;
+
+	UPROPERTY(BlueprintReadWrite)
+	TArray<FListEntry> Actions;
+};
+
 /**
  * 
  */
@@ -74,6 +86,9 @@ protected:
 	UPROPERTY(BlueprintReadWrite)
 	TArray<FListEntry> ListEntries;
 
+	// going to replace useage of list entry with this, blank context will be a catch all
+	UPROPERTY(BlueprintReadWrite)
+	TArray<FContextElementActionGroup> ContextElements;
 
 	//UFUNCTION(BlueprintCallable)
 	//void PlayerMadeListChoice(int32 ListChoice);
@@ -84,6 +99,8 @@ public:
 	void ShowListChoice(TArray<FDecisionPointAction*> dpActions, FListChoiceMade callBack);
 
 	void ShowAtomicListChoice(FText ActionDeclaration, FListChoiceMade ActionHandler);
+
+	void AddActionGroup(FText ElementTag);
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void DrawListChoice();

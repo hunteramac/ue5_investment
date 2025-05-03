@@ -91,6 +91,11 @@ void UPlayerInterface::ShowContextAction(FText ActionDeclaration, FListChoiceMad
 			ActionHandler)*/
 }
 
+void UPlayerInterface::AddContextElement(FText ElementTag)
+{
+	playerDisplay->AddActionGroup(ElementTag);
+}
+
 void UPlayerInterface::ClearContextActions()
 {
 	playerDisplay->CleanupListChoice();
