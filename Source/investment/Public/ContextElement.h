@@ -30,6 +30,8 @@ public:
 
 	FText ContextElementName;
 
+	bool MakeDefault;
+
 protected:
 	TObjectPtr<UObject> WorldContextObject;
 };

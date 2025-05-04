@@ -31,7 +31,7 @@ public:
 
 	void ShowContextAction(FText ActionDeclaration, FListChoiceMade ActionHandler);
 
-	void AddContextElement(FText ElementTag);
+	void AddContextElement(FText ElementTag, bool MakeDefault = false);
 
 	void ClearContextActions();
 
@@ -51,6 +51,13 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void SkipPortrayalTimer();
+
+	// going to replace useage of list entry with this, blank context will be a catch all
+	UPROPERTY(BlueprintReadWrite)
+	TArray<FContextElementActionGroup> ContextElements;
+	
+	UPROPERTY(BlueprintReadWrite)
+	int32 curSelectedContextIndex;
 
 protected:
 	FTimerHandle PortrayalTimerHandle;

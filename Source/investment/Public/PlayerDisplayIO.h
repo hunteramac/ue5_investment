@@ -35,6 +35,14 @@ public:
 
 	UPROPERTY(BlueprintReadWrite)
 	TArray<FListEntry> Actions;
+
+	// we don't want to add duplicate tags, so comparison will ignore array part.
+	// so we can use add unique to catch repeat tags
+	bool operator==(const FContextElementActionGroup& Other) const
+	{
+		return ElementTag.EqualTo(Other.ElementTag);
+	}
+
 };
 
 /**

@@ -13,6 +13,12 @@ UPlayerInterface::UPlayerInterface()
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
 
+	FContextElementActionGroup NewContextElement;
+
+	//magic string 'Immediate' denotes the 'default context' should none be supplied.
+	NewContextElement.ElementTag = FText::FromString("Immediate");
+	curSelectedContextIndex = 0;
+	ContextElements.AddUnique(NewContextElement);
 	// ...
 }
 
@@ -91,9 +97,24 @@ void UPlayerInterface::ShowContextAction(FText ActionDeclaration, FListChoiceMad
 			ActionHandler)*/
 }
 
-void UPlayerInterface::AddContextElement(FText ElementTag)
+void UPlayerInterface::AddContextElement(FText ElementTag, bool MakeDefault)
 {
-	playerDisplay->AddActionGroup(ElementTag);
+	//playerDisplay->AddActionGroup(ElementTag);
+
+	//for now, we won't check collisions, though we'll definetly need to
+	// 
+	//add an empty action group
+	FContextElementActionGroup NewContextElement;
+	NewContextElement.ElementTag = ElementTag;
+
+	// Its very important to ensure WAITING on executing flow graph, otherwise it can run before 
+	// UI is setup.
+	int32 returnIndex = ContextElements.AddUnique(NewContextElement);
+
+	if (MakeDefault)
+	{
+		curSelectedContextIndex = returnIndex;
+	}
 }
 
 void UPlayerInterface::ClearContextActions()
