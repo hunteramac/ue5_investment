@@ -22,6 +22,12 @@ UPlayerInterface::UPlayerInterface()
 	// ...
 }
 
+void UPlayerInterface::ExecuteAction(FListEntry listEntry)
+{
+	ContextElements.Empty();
+	listEntry.ExecuteCallBack();
+}
+
 /*
 Implements recursively iterating over the screen play entry, calling the UI to display, then displaying next after an interval
 Once all entries have been displayed, executes the callBack delegate (a flow node is waiting on).

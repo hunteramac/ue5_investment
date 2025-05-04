@@ -23,6 +23,11 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	UPlayerDisplayIO* parent;
+
+	void ExecuteCallBack()
+	{
+		callBack.ExecuteIfBound(entryNumber);
+	}
 };
 
 USTRUCT(BlueprintType)

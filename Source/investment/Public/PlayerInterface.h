@@ -17,6 +17,9 @@ public:
 	// Sets default values for this component's properties
 	UPlayerInterface();
 
+	UFUNCTION(BlueprintCallable)
+	void ExecuteAction(FListEntry listEntry);
+
 	/// <summary>
 	/// Work with the display facing the player to portray the screenplay.
 	/// On completion, message back the caller that job has been done.
