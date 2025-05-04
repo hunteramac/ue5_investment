@@ -10,7 +10,6 @@ UContextAction* UContextAction::AddAction(
 	UTextPortrayal* textPortrayal
 )
 {
-	
 	UContextAction* NewAction = NewObject< UContextAction>();
 
 	if (textPortrayal) {
@@ -23,7 +22,20 @@ UContextAction* UContextAction::AddAction(
 		NewAction->ActionDeclaration = ActionDeclaration;
 	}
 
+	NewAction->WorldContextObject = InWorldContextObject;
+	return NewAction;
+}
+
+UContextAction* UContextAction::AddContextAction(UObject* InWorldContextObject, FText ActionDeclaration, FText ContextTag)
+{
+	UContextAction* NewAction = NewObject< UContextAction>();
+
+	// if a context tag was provided, store it in the optional to pass down to player interface
+	if(!ContextTag.IsEmpty())
+		NewAction->ContextTag = ContextTag;
 	
+	NewAction->ActionDeclaration = ActionDeclaration;
+
 	NewAction->WorldContextObject = InWorldContextObject;
 	return NewAction;
 }
@@ -31,7 +43,7 @@ UContextAction* UContextAction::AddAction(
 void UContextAction::Activate()
 {
 	ActionHandlerDelegate.BindDynamic(this, &UContextAction::OnHandleAction);
-	GetPlayerInterface(WorldContextObject->GetWorld())->ShowContextAction(ActionDeclaration, ActionHandlerDelegate);
+	GetPlayerInterface(WorldContextObject->GetWorld())->AddContextAction(ActionDeclaration, ActionHandlerDelegate, ContextTag);
 }
 
 void UContextAction::OnHandleAction(int32 ignore)

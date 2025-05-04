@@ -25,9 +25,18 @@ public:
 		UTextPortrayal* textPortrayal
 	);
 
+	UFUNCTION(BlueprintCallable, BlueprintCosmetic, meta = (BlueprintInternalUseOnly = "true", WorldContext = "InWorldContextObject"))
+	static UContextAction* AddContextAction(
+		UObject* InWorldContextObject,
+		FText ActionDeclaration,
+		FText ContextTag
+	);
+
 	virtual void Activate() override;
 
 	FText ActionDeclaration;
+
+	TOptional<FText> ContextTag;
 
 	UFUNCTION()
 	void OnHandleAction(int32 ignore);

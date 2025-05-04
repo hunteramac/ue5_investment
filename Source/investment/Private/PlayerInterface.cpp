@@ -97,6 +97,42 @@ void UPlayerInterface::ShowContextAction(FText ActionDeclaration, FListChoiceMad
 			ActionHandler)*/
 }
 
+void UPlayerInterface::AddContextAction(FText ActionDeclaration, FListChoiceMade ActionHandler, TOptional<FText> ContextTag)
+{
+	FListEntry NewEntry(0, ActionDeclaration, ActionHandler, playerDisplay);
+
+	if (ContextTag.IsSet())
+	{
+		// search for context tag in list
+		FContextElementActionGroup* foundElemRef;
+
+		FContextElementActionGroup searchKey;
+		searchKey.ElementTag = ContextTag.GetValue();
+
+		foundElemRef = ContextElements.FindByKey(searchKey);
+		// if context tag provided, and it's present in the currently existing context elements, add action
+		if (foundElemRef)
+		{
+			foundElemRef->Actions.Add(NewEntry);
+		}
+		// if context tag provided, and it's not present in existing context, add context element, and add action
+		else
+		{
+			FContextElementActionGroup NewContextElement;
+			NewContextElement.ElementTag = ContextTag.GetValue();
+			NewContextElement.Actions.Add(NewEntry);
+			ContextElements.Add(NewContextElement);
+		}
+
+	}
+	else 
+	{
+		ContextElements[0].Actions.Add(NewEntry);
+	}
+	
+	// if context tag not provided, add action to the 'immediate' default context
+}
+
 void UPlayerInterface::AddContextElement(FText ElementTag, bool MakeDefault)
 {
 	//playerDisplay->AddActionGroup(ElementTag);

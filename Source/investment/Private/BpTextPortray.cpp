@@ -18,7 +18,11 @@ UBpTextPortray* UBpTextPortray::TextNarrationPortrayal(UObject* InWorldContextOb
 void UBpTextPortray::Activate()
 {
 	callBack.BindDynamic(this, &UBpTextPortray::PortrayalCompleted);
-	GetPlayerInterface(worldContextObject->GetWorld())->DoTextScreenPlayPortrayal(NarrationText, callBack);
+	//GetPlayerInterface(worldContextObject->GetWorld())->DoTextScreenPlayPortrayal(NarrationText, callBack);
+
+	UE_LOG(LogTemp, Display, TEXT("%s"), *NarrationText.ToString());
+
+	PortrayalCompleted();
 }
 
 void UBpTextPortray::PortrayalCompleted()
