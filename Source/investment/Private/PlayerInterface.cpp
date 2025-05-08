@@ -13,6 +13,13 @@ UPlayerInterface::UPlayerInterface()
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
 
+	ResetContext();
+}
+
+void UPlayerInterface::ResetContext()
+{
+	ContextElements.Empty();
+
 	FContextElementActionGroup NewContextElement;
 
 	//magic string 'Immediate' denotes the 'default context' should none be supplied.
@@ -24,7 +31,12 @@ UPlayerInterface::UPlayerInterface()
 
 void UPlayerInterface::ExecuteAction(FListEntry listEntry)
 {
-	ContextElements.Empty();
+	ResetContext();
+
+	// trigger any callbacks waiting for any player declared action
+	PlayerDeclaredAction();
+	//
+
 	listEntry.ExecuteCallBack();
 }
 

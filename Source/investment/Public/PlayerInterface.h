@@ -17,6 +17,8 @@ public:
 	// Sets default values for this component's properties
 	UPlayerInterface();
 
+	void ResetContext();
+
 	UFUNCTION(BlueprintCallable)
 	void ExecuteAction(FListEntry listEntry);
 
@@ -63,6 +65,13 @@ public:
 	
 	UPROPERTY(BlueprintReadWrite)
 	int32 curSelectedContextIndex;
+
+	/// <summary>
+	/// Implemented on Blueprint side to facilitate causing things to happen when an action
+	/// is declared by the player (eg, cause generic cleanup and other things!)
+	/// </summary>
+	UFUNCTION(BlueprintImplementableEvent)
+	void PlayerDeclaredAction();
 
 protected:
 	FTimerHandle PortrayalTimerHandle;
