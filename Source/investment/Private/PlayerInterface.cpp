@@ -188,9 +188,32 @@ void UPlayerInterface::HandleAttemptedActionDeclare(FText param1, FText param2)
 {
 	//look through possibleDeclarableActions for a match. if no match. log a gm like response error checking.
 	//if match, trigger the handler
+	for (int i = 0; i < possibleDeclarableActions.Num(); ++i)
+	{
+		if (
+			(possibleDeclarableActions[i].Subject.ToString().Equals(param1.ToString(),ESearchCase::IgnoreCase) ||
+			possibleDeclarableActions[i].Subject.ToString().Equals(param2.ToString(), ESearchCase::IgnoreCase)) 
+				&&
+			(possibleDeclarableActions[i].Verb.ToString().Equals(param1.ToString(), ESearchCase::IgnoreCase) ||
+			possibleDeclarableActions[i].Verb.ToString().Equals(param2.ToString(), ESearchCase::IgnoreCase))
+		)
+		{
+			FListChoiceMade callBack = possibleDeclarableActions[i].callBack;
+			if (!callBack.IsBound())
+			{
+				break;
+			}
 
-	//for now, we'll just execute very first thing we get, with no checks.
-	possibleDeclarableActions[0].callBack.ExecuteIfBound(1);
+			ResetContext();
+			PlayerDeclaredAction();
+			callBack.ExecuteIfBound(1);
+			return;
+		}
+		
+	}
+	
+	UE_LOG(LogTemp, Display, TEXT("  \n \n Invalid action declaration."));
+	return;
 }
 
 
