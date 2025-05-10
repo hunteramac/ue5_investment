@@ -27,6 +27,8 @@ void UPlayerInterface::ResetContext()
 	curSelectedContextIndex = 0;
 	ContextElements.AddUnique(NewContextElement);
 	// ...
+
+	possibleDeclarableActions.Empty();
 }
 
 void UPlayerInterface::ExecuteAction(FListEntry listEntry)
@@ -171,9 +173,24 @@ void UPlayerInterface::AddContextElement(FText ElementTag, bool MakeDefault)
 	}
 }
 
+void UPlayerInterface::AddDeclarableAction(FActionDeclaration newAd)
+{
+	possibleDeclarableActions.Add(newAd);
+}
+
 void UPlayerInterface::ClearContextActions()
 {
 	playerDisplay->CleanupListChoice();
+	possibleDeclarableActions.Empty();
+}
+
+void UPlayerInterface::HandleAttemptedActionDeclare(FText param1, FText param2)
+{
+	//look through possibleDeclarableActions for a match. if no match. log a gm like response error checking.
+	//if match, trigger the handler
+
+	//for now, we'll just execute very first thing we get, with no checks.
+	possibleDeclarableActions[0].callBack.ExecuteIfBound(1);
 }
 
 

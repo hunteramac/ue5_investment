@@ -8,6 +8,21 @@
 #include "PlayerDisplayIO.h"
 #include "PlayerInterface.generated.h"
 
+USTRUCT(BlueprintType)
+struct FActionDeclaration
+{
+	GENERATED_USTRUCT_BODY()
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FText Subject;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FText Verb;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FListChoiceMade callBack;
+};
+
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent), BlueprintType, Blueprintable)
 class INVESTMENT_API UPlayerInterface : public UActorComponent
 {
@@ -40,7 +55,14 @@ public:
 
 	void AddContextElement(FText ElementTag, bool MakeDefault = false);
 
+	void AddDeclarableAction(FActionDeclaration newAd);
+
 	void ClearContextActions();
+
+	TArray<FActionDeclaration> possibleDeclarableActions;
+
+	UFUNCTION(BlueprintCallable)
+	void HandleAttemptedActionDeclare(FText param1, FText param2);
 
 protected:
 

@@ -6,6 +6,7 @@
 #include "Kismet/BlueprintAsyncActionBase.h"
 #include "MyStructs.h"
 #include "TextPortrayal.h"
+#include "AccessUtils.h"
 #include "ContextAction.generated.h"
 
 //DECLARE_DYNAMIC_MULTICAST_DELEGATE(FBpAssignable);
@@ -32,11 +33,20 @@ public:
 		FText ContextTag
 	);
 
+	UFUNCTION(BlueprintCallable, BlueprintCosmetic, meta = (BlueprintInternalUseOnly = "true", WorldContext = "InWorldContextObject"))
+	static UContextAction* AddHandlerForActionDeclaration(
+		UObject* InWorldContextObject,
+		FText Subject,
+		FText Verb
+	);
+
 	virtual void Activate() override;
 
 	FText ActionDeclaration;
 
 	TOptional<FText> ContextTag;
+
+	TOptional<FActionDeclaration> PossibleActionDeclaration;
 
 	UFUNCTION()
 	void OnHandleAction(int32 ignore);

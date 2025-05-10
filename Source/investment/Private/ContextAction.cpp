@@ -2,7 +2,7 @@
 
 
 #include "ContextAction.h"
-#include "AccessUtils.h"
+
 
 UContextAction* UContextAction::AddAction(
 	UObject* InWorldContextObject, 
@@ -40,10 +40,41 @@ UContextAction* UContextAction::AddContextAction(UObject* InWorldContextObject, 
 	return NewAction;
 }
 
+UContextAction* UContextAction::AddHandlerForActionDeclaration(UObject* InWorldContextObject, FText Subject, FText Verb)
+{
+	UContextAction* NewAction = NewObject< UContextAction>();
+
+	FActionDeclaration newAd;
+	newAd.Subject = Subject;
+	newAd.Verb = Verb;
+	NewAction->PossibleActionDeclaration = newAd;
+	NewAction->WorldContextObject = InWorldContextObject;
+
+	return NewAction;
+}
+
 void UContextAction::Activate()
 {
-	ActionHandlerDelegate.BindDynamic(this, &UContextAction::OnHandleAction);
-	GetPlayerInterface(WorldContextObject->GetWorld())->AddContextAction(ActionDeclaration, ActionHandlerDelegate, ContextTag);
+	//AddHandlerForActionDeclaration was called
+	if (PossibleActionDeclaration) {
+		
+		FActionDeclaration newAd;
+		newAd.Subject = PossibleActionDeclaration.GetValue().Subject;
+		newAd.Verb = PossibleActionDeclaration.GetValue().Verb;
+
+		ActionHandlerDelegate.BindDynamic(this, &UContextAction::OnHandleAction);
+		newAd.callBack = ActionHandlerDelegate;
+		//GetPlayerInterface(WorldContextObject->GetWorld())
+
+		PossibleActionDeclaration = newAd;
+
+		GetPlayerInterface(WorldContextObject->GetWorld())->AddDeclarableAction(newAd);
+	}
+	else {
+		ActionHandlerDelegate.BindDynamic(this, &UContextAction::OnHandleAction);
+		GetPlayerInterface(WorldContextObject->GetWorld())->AddContextAction(ActionDeclaration, ActionHandlerDelegate, ContextTag);
+	}
+	
 }
 
 void UContextAction::OnHandleAction(int32 ignore)
